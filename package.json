@@ -1,0 +1,23 @@
+{
+  "name": "blogs",
+  "version": "1.0.0",
+  "description": "nodejs+mysql+vue",
+  "main": "bin/www.js",
+  "scripts": {
+    "dev": "nodemon bin/www.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m2maomao/blogs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/m2maomao/blogs/issues"
+  },
+  "homepage": "https://github.com/m2maomao/blogs#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
