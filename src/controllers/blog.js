@@ -1,6 +1,6 @@
 // 博客相关方法
 // 获取博客列表数据
-const getList = (author, keyword) => {
+const getBlogList = (author, keyword) => {
   // 从数据库里拿数据
   return [
     {
@@ -20,7 +20,7 @@ const getList = (author, keyword) => {
   ]
 }
 // 获取博客详情
-const getDetail = (id) => {
+const getBlogDetail = (id) => {
   return {
     id: 1,
     title: '标题1',
@@ -29,7 +29,27 @@ const getDetail = (id) => {
     createAt: 1744209483584
   }
 }
+
+// 创建新的博客
+const createNewBlog = (blogData) => {
+  return {
+    id: 1
+  };
+}
+
+// 更新博客
+const updateBlog = (id, blogData = {}) => {
+  return true;
+}
+
+// 删除博客
+const deleteBlog = (id) => {
+  return true;
+}
 module.exports = {
-  getList,
-  getDetail
+  getBlogList,
+  getBlogDetail,
+  createNewBlog,
+  updateBlog,
+  deleteBlog
 };

@@ -31,7 +31,7 @@ const getPostData = (req) => {
     })
   });
   return promise;
-}
+};
 
 const serverHandler = (req, res) => {
   // 设置响应格式
@@ -47,6 +47,7 @@ const serverHandler = (req, res) => {
   // 处理 POST 数据
   getPostData(req).then((postData) => {
     req.body = postData;
+
     // 博客相关路由
     const blogData = handleBlogRoute(req, res);
     if (blogData) {
@@ -55,6 +56,7 @@ const serverHandler = (req, res) => {
       )
       return;
     }
+    
     // 未匹配到任何路由
     res.writeHead(404, { 'Content-Type': 'text/plain'});
     res.write('404 Node Found');
