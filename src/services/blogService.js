@@ -16,8 +16,7 @@ const getBlogList = async(page = 1, pageSize = 10, categoryId = null) => {
     }
     
     // 添加分页参数
-    params.push(pageSize, offset);
-    console.log('params@@@@@@@@@: ', params);
+    params.push(BigInt(pageSize), BigInt(offset));
     
     const sql = `
       SELECT b.*, c.name as category_name
