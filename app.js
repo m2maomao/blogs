@@ -1,67 +1,32 @@
-const querystring = require('querystring');
+const express = require('express');
+const app = express();
 
-const handleBlogRoute = require('./src/routes/blog');
+// 中间件
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-// 处理POST数据
-const getPostData = (req) => {
-  const promise = new Promise((resolve, reject) => {
-    if (req.method !== 'POST') {
-      resolve({});
-      return;
-    }
-    if (req.headers['content-type'] !== 'application/json') {
-      resolve({});
-      return;
-    }
+// 路由
+const blogRouter = require('./src/routes/blog');
+const categoryRouter = require('./src/routes/category');
 
-    let postData = '';
+app.use('/api/blog', blogRouter);
+app.use('/api/category', categoryRouter);
 
-    req.on('data', (chunk) => {
-      postData += chunk.toString();
-    });
-
-    req.on('end', () => {
-      if (!postData) {
-        resolve({});
-        return;
-      }
-      resolve(
-        JSON.parse(postData)
-      )
-    })
+// 错误处理中间件
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({
+    success: false,
+    message: '服务器内部错误'
   });
-  return promise;
-};
+});
 
-const serverHandler = (req, res) => {
-  // 设置响应格式
-  res.setHeader('Content-Type', 'application/json');
+// 404处理
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: '资源未找到'
+  });
+});
 
-  // 获取path
-  const url = req.url;
-  req.path = url.split('?')[0];
-
-  // 解析query
-  req.query = querystring.parse(url.split('?')[1]);
-
-  // 处理 POST 数据
-  getPostData(req).then((postData) => {
-    req.body = postData;
-
-    // 博客相关路由
-    const blogData = handleBlogRoute(req, res);
-    if (blogData) {
-      res.end(
-        JSON.stringify(blogData)
-      )
-      return;
-    }
-    
-    // 未匹配到任何路由
-    res.writeHead(404, { 'Content-Type': 'text/plain'});
-    res.write('404 Node Found');
-    res.end();
-  })
-}
-
-module.exports = serverHandler;
+module.exports = app;
