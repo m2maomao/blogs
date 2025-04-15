@@ -58,6 +58,60 @@
 }
 ```
 
+#### 获取博客详情
+- 请求方法: GET
+- 请求路径: /api/blog/:id
+- 请求参数:
+  - id: 博客ID(路径参数)
+- 响应示例:
+```json
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "title": "博客标题",
+    "content": "博客内容",
+    "author": "作者",
+    "category_id": 1,
+    "create_time": "2023-01-01 10:00:00"
+  }
+}
+```
+
+#### 更新博客
+- 请求方法: PUT
+- 请求路径: /api/blog/:id
+- 请求参数:
+  - id: 博客ID(路径参数)
+  - title: 标题(可选)
+  - content: 内容(可选)
+  - author: 作者(可选)
+  - category_id: 分类ID(可选)
+- 响应示例:
+```json
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "title": "更新后的标题",
+    "content": "更新后的内容"
+  }
+}
+```
+
+#### 删除博客
+- 请求方法: DELETE
+- 请求路径: /api/blog/:id
+- 请求参数:
+  - id: 博客ID(路径参数)
+- 响应示例:
+```json
+{
+  "success": true,
+  "message": "博客删除成功"
+}
+```
+
 ### 分类相关接口
 
 #### 获取分类列表
